@@ -622,7 +622,11 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
         @Override
         public void afterTextChanged(Editable s) {
-            //##Force first character can't be started with sapce
+            //##1.Check Validator if it has some focus
+            if(this.l_edittext.hasFocus()){
+                boolean valid = checkValidator();
+            }
+            //##2. Force first character can't be started with space
             if(l_edittext.getText().toString().trim().equals("")){
                 l_edittext.getText().clear();
             }

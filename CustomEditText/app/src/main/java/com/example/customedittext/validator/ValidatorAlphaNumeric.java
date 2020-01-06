@@ -1,6 +1,6 @@
 package com.example.customedittext.validator;
 
-import com.utilities.Utilities;
+import com.example.customedittext.utilities.Utilities;
 
 public class ValidatorAlphaNumeric implements IValidator {
     @Override

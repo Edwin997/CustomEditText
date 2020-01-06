@@ -2,7 +2,7 @@ package com.example.customedittext.validator;
 
 import android.util.Log;
 
-import com.utilities.Utilities;
+import com.example.customedittext.utilities.Utilities;
 
 public class ValidatorCreateCodeAccess implements IValidator {
     @Override
