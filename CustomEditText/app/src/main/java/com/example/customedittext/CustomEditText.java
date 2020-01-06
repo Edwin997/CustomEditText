@@ -23,7 +23,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-public class CustomEditText extends LinearLayout {
+import com.example.customedittext.validator.IValidator;
+
+import java.util.ArrayList;
+
+public class CustomEditText extends LinearLayout{
 
     //Data Member Layout
     private LinearLayout g_layouts;
@@ -36,6 +40,7 @@ public class CustomEditText extends LinearLayout {
     private boolean isNeedError = true;
     private boolean isNeedJudul = true;
     private boolean g_hasFocus = false;
+    private ArrayList<IValidator> g_validatorArrayList;
 
     //Style Data Member
     @StyleRes int resIdHintWithError = 0;
@@ -80,6 +85,7 @@ public class CustomEditText extends LinearLayout {
         g_edittext.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         g_edittext.setOnFocusChangeListener(new CustomFocus(g_edittext));
         g_edittext.addTextChangedListener(new CustomTextWatcher(g_edittext));
+        g_validatorArrayList = new ArrayList<>();
     }
 
     private void init(Context context, AttributeSet attrs){
@@ -91,6 +97,7 @@ public class CustomEditText extends LinearLayout {
         if(!g_tv_Subhint.getText().toString().trim().isEmpty()){
             addSubHint();
         }
+        g_validatorArrayList = new ArrayList<>();
     }
 
     private void setAttributes(AttributeSet attrs){
@@ -511,6 +518,51 @@ public class CustomEditText extends LinearLayout {
         }else{
             g_tv_Error.setTextColor(getResources().getColor(R.color.colorError));
         }
+    }
+    //endregion
+
+    //region METHOD Validator
+    @Override
+    public void addValidator(IValidator p_validator){
+        g_validatorArrayList.add(p_validator);
+    }
+
+    @Override
+    public boolean checkValidator(){
+        boolean isValid;
+
+        for(int i = 0; i < g_validatorArrayList.size(); i++){
+            isValid = g_validatorArrayList.get(i).validateText(g_editText.getText().toString());
+            if(!isValid){
+                g_textInputLayout.setErrorEnabled(true);
+                g_textInputLayout.setError(g_validatorArrayList.get(i).getErrorMessage().replace("%d", getHint()));
+                //g_textInputLayout.setError(g_errorMessageArrayList.get(i));
+                if(onCheckValidatorListener != null){
+                    onCheckValidatorListener.onCheckedValidator(false);
+                }
+                return false;
+            }
+            else{
+                g_textInputLayout.setError(null);
+                g_textInputLayout.setErrorEnabled(false);
+            }
+        }
+        if(onCheckValidatorListener != null){
+            onCheckValidatorListener.onCheckedValidator(true);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkValidatorWithoutErrorMessage(){
+        boolean isValid;
+        for(int i = 0; i < g_validatorArrayList.size(); i++){
+            isValid = g_validatorArrayList.get(i).validateText(g_editText.getText().toString());
+            if(!isValid){
+                return false;
+            }
+        }
+        return true;
     }
     //endregion
 
