@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".MainActivity">
+
+    <com.example.customedittext.CustomEditText
+        android:layout_margin="8dp"
+        android:id="@+id/cet_Coba0"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:hint="Nomor e-KTP"
+        app:error="Nomor e-KTP harus 16 digit"
+        app:isRounded="true"
+        app:maxLength="16"
+        app:keyboardType="3"
+        app:isPassword="true"
+        />
+
+    <com.example.customedittext.CustomEditText
+        android:layout_margin="8dp"
+        android:id="@+id/cet_Coba2"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:hint="Nomor e-KTP"
+        app:error="Nomor e-KTP harus 16 digit"
+        app:subHint="alamat,rumah"
+        app:size="3"
+        app:isRounded="true"
+        app:maxLength="16"
+        app:keyboardType="3"
+        app:singleLine="true"
+        />
+
+    <com.example.customedittext.CustomEditText
+        android:layout_margin="8dp"
+        android:id="@+id/cet_Coba3"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:hint="Nomor e-KTP"
+        app:error="Nomor e-KTP harus 16 digit"
+        app:size="2"
+        app:isRounded="true"
+        app:maxLength="16"
+        app:keyboardType="3"
+        app:isPassword="true"
+        app:singleLine="true"
+        />
+
+    <com.example.customedittext.CustomEditText
+        android:layout_margin="8dp"
+        android:id="@+id/cet_Coba4"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:hint="Nomor e-KTP"
+        app:error="Nomor e-KTP harus 16 digit"
+        app:isRounded="true"
+        app:size="1"
+        app:maxLength="16"
+        app:keyboardType="2"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

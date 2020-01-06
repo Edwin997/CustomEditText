@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="hint" format="string" />
+        <attr name="subHint" format="string" />
+        <attr name="error" format="string" />
+        <attr name="size" format="integer" />
+        <attr name="singleLine" format="boolean" />
+        <attr name="keyboardType" format="integer" />
+        <attr name="isPassword" format="boolean" />
+        <attr name="maxLength" format="integer"/>
+        <attr name="messageSize" format="integer" />
+        <attr name="notEmpty" format="boolean" />
+        <attr name="message" format="string" />
+        <attr name="isRounded" format="boolean" />
+        <attr name="hintApperanceWithError" format="integer" />
+        <attr name="hintApperanceWithoutError" format="integer" />
+        <attr name="subHintApperance" format="integer" />
+        <attr name="errorApperance" format="integer" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="CustomEditTextFull" format="float">4.0</dimen>
+    <dimen name="CustomEditTextSize3" format="float">3.0</dimen>
+    <dimen name="CustomEditTextSize2" format="float">2.0</dimen>
+    <dimen name="CustomEditTextSize1" format="float">1.0</dimen>
+
+    <dimen name="SizeTextSize23" format="float">23.0</dimen>
+    <dimen name="SizeTextSize20" format="float">20.0</dimen>
+    <dimen name="SizeTextSize17" format="float">17.0</dimen>
+    <dimen name="SizeTextSize14" format="float">14.0</dimen>
+    <dimen name="SizeTextSize13" format="float">13.0</dimen>
+
+    <dimen name="SizeLayoutL" fromat="float">325</dimen>
+    <dimen name="SizeLayoutM" format="float">290</dimen>
+    <dimen name="SizeLayoutS" format="float">255</dimen>
+</resources>
