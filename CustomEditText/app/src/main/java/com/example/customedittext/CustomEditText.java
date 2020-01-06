@@ -26,10 +26,18 @@ import androidx.annotation.StyleRes;
 import com.example.customedittext.validator.IValidator;
 import com.example.customedittext.validator.OnCheckValidatorListener;
 import com.example.customedittext.validator.ValidableView;
+import com.example.customedittext.validator.ValidatorAlphaNumeric;
+import com.example.customedittext.validator.ValidatorContainAlphaNumeric;
 import com.example.customedittext.validator.ValidatorCreateCodeAccess;
+import com.example.customedittext.validator.ValidatorDigitOnly;
+import com.example.customedittext.validator.ValidatorEmail;
 import com.example.customedittext.validator.ValidatorEmptyText;
+import com.example.customedittext.validator.ValidatorMatcherText;
+import com.example.customedittext.validator.ValidatorMinLengthAlphabet;
+import com.example.customedittext.validator.ValidatorMinLengthDigit;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 public class CustomEditText extends LinearLayout implements ValidableView {
 
@@ -45,6 +53,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
     private boolean isNeedJudul = true;
     private boolean g_hasFocus = false;
     private ArrayList<IValidator> g_validatorArrayList;
+    private ArrayList<IValidator> g_menuValidator;
 
     //Style Data Member
     @StyleRes int resIdHintWithError = 0;
@@ -82,6 +91,14 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
         g_tv_Error = new TextView(g_context);
         g_tv_Error.setTag("error");
+
+        g_menuValidator = new ArrayList<>();
+        g_menuValidator.add(new ValidatorEmptyText());
+        g_menuValidator.add(new ValidatorCreateCodeAccess());
+        g_menuValidator.add(new ValidatorAlphaNumeric());
+        g_menuValidator.add(new ValidatorContainAlphaNumeric());
+        g_menuValidator.add(new ValidatorDigitOnly());
+        g_menuValidator.add(new ValidatorEmail());
     }
 
     private void init(Context context){
@@ -171,9 +188,26 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
-            if(arrayStyledAttributes.getBoolean(R.styleable.CustomEditText_notEmpty, false)){
-                addValidator(new ValidatorEmptyText());
-                addValidator(new ValidatorCreateCodeAccess());
+            if (arrayStyledAttributes.getString(R.styleable.CustomEditText_validatorType) != null) {
+                String[] validatorArray = arrayStyledAttributes.getString(R.styleable.CustomEditText_validatorType).split("|");
+                if (validatorArray.length > 0) {
+                    setValidator(validatorArray);
+                }
+            }
+
+            int minLengthDigit = arrayStyledAttributes.getInteger(R.styleable.CustomEditText_minLengthDigit, -1);
+            if(minLengthDigit != -1){
+                setMinLengthDigit(minLengthDigit);
+            }
+
+            int minLengthAlphabet = arrayStyledAttributes.getInteger(R.styleable.CustomEditText_minLengthAlphabet, -1);
+            if(minLengthAlphabet != -1){
+                setMinLengthAlphabet(minLengthAlphabet);
+            }
+
+            int matcherEditText = arrayStyledAttributes.getResourceId(R.styleable.CustomEditText_matchText, -1);
+            if(matcherEditText != -1){
+                setMatcherText(matcherEditText);
             }
 
             String message = arrayStyledAttributes.getString(R.styleable.CustomEditText_message);
@@ -485,11 +519,46 @@ public class CustomEditText extends LinearLayout implements ValidableView {
         g_edittext.setTextSize(p_unit, p_size);
     }
 
+    private void setValidator(String[] p_validatorList){
+        for(int idx = 0; idx < p_validatorList.length; idx++){
+            try {
+                addValidator(g_menuValidator.get(Integer.parseInt(p_validatorList[idx])));
+            }catch (Exception ex){
+                Log.d("EXCEPTION", "Set validator gagal pada validator ke-" + idx + " ERROR : " + ex.getMessage());
+            }
+        }
+    }
+
+    private void setMinLengthAlphabet(int p_minLength){
+        addValidator(new ValidatorMinLengthAlphabet(p_minLength));
+    }
+
+    private void setMinLengthDigit(int p_minLength){
+        addValidator(new ValidatorMinLengthDigit(p_minLength));
+    }
+
+    private void setMatcherText(int p_idEditText){
+        try {
+
+            CustomEditText l_matcher = findViewById(p_idEditText);
+            if(l_matcher != null){
+                addValidator(new ValidatorMatcherText(l_matcher));
+            }
+        }catch (Exception ex){
+
+            Log.d("EXCEPTION", "Set Matcher Text gagal, ERROR : " + ex.getMessage());
+        }
+    }
+
     public void setText(String p_text){
         if(TextUtils.isEmpty(p_text))
             return;
 
         g_edittext.setText(p_text);
+    }
+
+    public String getText(){
+        return g_edittext.getText().toString();
     }
 
     public void setRoundedEdittext(int p_type){

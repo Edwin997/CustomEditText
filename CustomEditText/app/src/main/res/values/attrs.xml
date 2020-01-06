@@ -10,7 +10,10 @@
         <attr name="isPassword" format="boolean" />
         <attr name="maxLength" format="integer"/>
         <attr name="messageSize" format="integer" />
-        <attr name="notEmpty" format="boolean" />
+        <attr name="validatorType" format="string" />
+        <attr name="matchText" format="reference" />
+        <attr name="minLengthAlphabet" format="integer" />
+        <attr name="minLengthDigit" format="integer" />
         <attr name="message" format="string" />
         <attr name="isRounded" format="integer" />
         <attr name="hintApperanceWithError" format="integer" />

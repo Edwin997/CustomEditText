@@ -19,13 +19,15 @@
         android:textColor="#FFFFFF" />
 
     <com.example.customedittext.CustomEditText
+        android:id="@+id/tesMatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="5dp"
         app:hint="Buat Kode Akses"
-        app:notEmpty="true"
+        app:validatorType="0|1"
+        app:minLengthDigit="6"
         app:isPassword="true"
         app:size="1"
         app:maxLength="6"
@@ -33,16 +35,17 @@
         />
 
     <com.example.customedittext.CustomEditText
+        android:id="@+id/tesMatch2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="5dp"
         app:hint="Ulangi Kode Akses"
-        app:notEmpty="true"
+        app:validatorType="0|1"
         app:isPassword="true"
-        app:maxLength="6"
         app:size="1"
+        app:maxLength="6"
         />
 
     <TextView

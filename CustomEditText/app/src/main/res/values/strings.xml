@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Custom EditText</string>
+
+    <string name="ValidatorCreateCodeAccess">0</string>
+    <string name="ValidatorAlphaNumeric">1</string>
+    <string name="ValidatorContainAlphaNumeric">2</string>
+    <string name="ValidatorDigitOnly">3</string>
+    <string name="ValidatorEmail">4</string>
 </resources>
