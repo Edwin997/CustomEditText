@@ -348,7 +348,6 @@ public class CustomEditText extends LinearLayout {
         g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize14));
         g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
         g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
-        
         g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutS)));
     }
 
