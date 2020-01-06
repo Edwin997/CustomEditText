@@ -28,6 +28,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
             app:hint="Alamat"
+            app:validatorType="0"
             app:size="1"
             app:isRounded="2"
             />
@@ -38,9 +39,10 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
-            app:hint="RT"
+            app:hint="RTg"
+            app:validatorType="0"
             app:keyboardType="3"
-            app:size="1"
+            app:size="2"
             />
 
         <com.example.customedittext.CustomEditText
@@ -49,9 +51,10 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
-            app:hint="RW"
+            app:hint="RWg"
+            app:validatorType="0"
             app:keyboardType="3"
-            app:size="1"
+            app:size="3"
             />
 
         <com.example.customedittext.CustomEditText
@@ -61,6 +64,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
             app:hint="Kelurahan"
+            app:validatorType="0"
             app:size="1"
             />
 
@@ -71,6 +75,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
             app:hint="Kecamatan"
+            app:validatorType="0"
             app:size="1"
             />
 
@@ -80,7 +85,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
-            app:validatorType="1"
+            app:validatorType="0"
             app:hint="Kota"
             app:size="1"
             app:maxLength="6"
@@ -94,6 +99,7 @@
             android:layout_marginBottom="5dp"
             app:hint="Kode Pos"
             app:size="1"
+            app:validatorType="0"
             app:isRounded="3"
             app:keyboardType="3"
             app:maxLength="5"

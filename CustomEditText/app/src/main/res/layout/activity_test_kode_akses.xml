@@ -26,6 +26,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="5dp"
         app:hint="Buat Kode Akses"
+        app:subHint="KodeAkses"
         app:validatorType="0|1"
         app:minLengthDigit="6"
         app:isPassword="true"

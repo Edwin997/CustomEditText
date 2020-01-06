@@ -5,13 +5,13 @@
     <dimen name="CustomEditTextSize2" format="float">2.0</dimen>
     <dimen name="CustomEditTextSize1" format="float">1.0</dimen>
 
-    <dimen name="SizeTextSize23" format="float">23.0</dimen>
-    <dimen name="SizeTextSize20" format="float">20.0</dimen>
     <dimen name="SizeTextSize17" format="float">17.0</dimen>
-    <dimen name="SizeTextSize14" format="float">14.0</dimen>
     <dimen name="SizeTextSize13" format="float">13.0</dimen>
+    <dimen name="SizeTextSize12" format="float">12.0</dimen>
+    <dimen name="SizeTextSize10" format="float">10.0</dimen>
+    <dimen name="SizeTextSize8" format="float">8.0</dimen>
 
-    <dimen name="SizeLayoutL" fromat="float">325</dimen>
-    <dimen name="SizeLayoutM" format="float">290</dimen>
-    <dimen name="SizeLayoutS" format="float">255</dimen>
+    <dimen name="SizeLayoutL" format="float">200</dimen>
+    <dimen name="SizeLayoutM" format="float">175</dimen>
+    <dimen name="SizeLayoutS" format="float">150</dimen>
 </resources>

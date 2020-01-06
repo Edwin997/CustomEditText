@@ -54,6 +54,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
     private boolean g_hasFocus = false;
     private ArrayList<IValidator> g_validatorArrayList;
     private ArrayList<IValidator> g_menuValidator;
+    private int g_layout_type = 0;
 
     //Style Data Member
     @StyleRes int resIdHintWithError = 0;
@@ -146,6 +147,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
             int size = arrayStyledAttributes.getInteger(R.styleable.CustomEditText_size, -1);
             if(size != -1){
+                g_layout_type = size;
                 if(size == 1){
                     setSizeS();
                 }else if(size == 2){
@@ -259,6 +261,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                     g_tv_Hint.setGravity(Gravity.BOTTOM);
                     g_edittext.setLayoutParams(getLayoutParamsWeight2());
                     g_edittext.setGravity(Gravity.TOP);
+                    g_edittext.setHint("");
                 } else {
                     g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
                     g_edittext.setLayoutParams(getLayoutParamsWeight2());
@@ -279,7 +282,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 } else {
                     g_edittext.setLayoutParams(getLayoutParamsWeight3());
                 }
-
+                g_edittext.setHint(g_tv_Hint.getText().toString());
                 g_layouts.removeView(g_tv_Hint);
             }
         }
@@ -292,6 +295,14 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 setHintApperance();
 
                 setErrorTextAppearance();
+                if(g_layout_type == 1){
+                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
+                } else if(g_layout_type == 2){
+                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+                }else if(g_layout_type == 3){
+                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12));
+                }
+
                 g_tv_Error.setLayoutParams(getLayoutParamsWeight1());
                 g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
                 g_tv_Hint.setGravity(Gravity.CENTER_VERTICAL);
@@ -307,7 +318,13 @@ public class CustomEditText extends LinearLayout implements ValidableView {
             if(g_layouts.findViewWithTag("error") != null) {
                 isNeedError = true;
                 setHintApperance();
-
+                if(g_layout_type == 1){
+                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+                }else if(g_layout_type == 2){
+                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
+                }else if(g_layout_type == 3){
+                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
+                }
                 g_tv_Hint.setLayoutParams(getLayoutParamsWeight2());
                 g_tv_Hint.setGravity(Gravity.BOTTOM);
                 g_edittext.setLayoutParams(getLayoutParamsWeight2());
@@ -393,26 +410,26 @@ public class CustomEditText extends LinearLayout implements ValidableView {
     }
 
     public void setSizeL(){
-        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize23));
-        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize20));
-        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
-        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
+        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
+        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
+        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12));
+        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12));
         g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutL)));
     }
 
     public void setSizeM(){
-        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize23));
-        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize20));
-        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize14));
-        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize14));
+        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
+        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
+        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
         g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutM)));
     }
 
     public void setSizeS(){
-        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
-        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize14));
-        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
-        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
+        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
+        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
         g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutS)));
     }
 
@@ -678,17 +695,19 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 removeSubHint();
                 addJudul();
             }
+            //untuk menghilangkan error dan judul ketika lost focus
             else {
-                if(l_text.getText().toString().trim().isEmpty()){
-                    removeError();
-                    removeJudul();
-
-                    if(!g_tv_Subhint.getText().toString().trim().isEmpty()){
-                        addSubHint();
-                    }else{
-                        g_edittext.setLayoutParams(getLayoutParamsWeight4());
-                    }
-                }
+                boolean cek = checkValidator();
+//                if(l_text.getText().toString().trim().isEmpty()){
+//                    removeError();
+//                    removeJudul();
+//
+//                    if(!g_tv_Subhint.getText().toString().trim().isEmpty()){
+//                        addSubHint();
+//                    }else{
+//                        g_edittext.setLayoutParams(getLayoutParamsWeight4());
+//                    }
+//                }
             }
 
         }
