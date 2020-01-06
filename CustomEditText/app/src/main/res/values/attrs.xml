@@ -12,7 +12,7 @@
         <attr name="messageSize" format="integer" />
         <attr name="notEmpty" format="boolean" />
         <attr name="message" format="string" />
-        <attr name="isRounded" format="boolean" />
+        <attr name="isRounded" format="integer" />
         <attr name="hintApperanceWithError" format="integer" />
         <attr name="hintApperanceWithoutError" format="integer" />
         <attr name="subHintApperance" format="integer" />

@@ -23,9 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
         app:hint="Buat Kode Akses"
+        app:notEmpty="true"
+        app:isPassword="true"
         app:size="1"
-        app:isRounded="true"
+        app:maxLength="6"
+        app:isRounded="2"
         />
 
     <com.example.customedittext.CustomEditText
@@ -33,16 +37,32 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
         app:hint="Ulangi Kode Akses"
         app:notEmpty="true"
         app:isPassword="true"
+        app:maxLength="6"
         app:size="1"
-        app:isRounded="true"
         />
 
-    <Button
-        android:id="@+id/Lanjut"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@drawable/style_background_custom_edittext_bottom"
+        android:text="Kode Akses ini digunakan untuk masuk kembali ke menu Buka Rekening Baru dan m-BCA" />
+
+    <Button
+        android:id="@+id/btnLanjut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
+        android:text="Lanjut" />
 </LinearLayout>

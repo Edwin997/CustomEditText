@@ -26,6 +26,7 @@ import androidx.annotation.StyleRes;
 import com.example.customedittext.validator.IValidator;
 import com.example.customedittext.validator.OnCheckValidatorListener;
 import com.example.customedittext.validator.ValidableView;
+import com.example.customedittext.validator.ValidatorCreateCodeAccess;
 import com.example.customedittext.validator.ValidatorEmptyText;
 
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
     private void init(Context context, AttributeSet attrs){
         initLayout(context);
+        g_validatorArrayList = new ArrayList<>();
         g_edittext.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         g_edittext.setOnFocusChangeListener(new CustomFocus(g_edittext));
         g_edittext.addTextChangedListener(new CustomTextWatcher(g_edittext));
@@ -100,7 +102,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
         if(!g_tv_Subhint.getText().toString().trim().isEmpty()){
             addSubHint();
         }
-        g_validatorArrayList = new ArrayList<>();
+
     }
 
     private void setAttributes(AttributeSet attrs){
@@ -171,6 +173,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
             if(arrayStyledAttributes.getBoolean(R.styleable.CustomEditText_notEmpty, false)){
                 addValidator(new ValidatorEmptyText());
+                addValidator(new ValidatorCreateCodeAccess());
             }
 
             String message = arrayStyledAttributes.getString(R.styleable.CustomEditText_message);
@@ -178,8 +181,9 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 setText(message);
             }
 
-            if(arrayStyledAttributes.getBoolean(R.styleable.CustomEditText_isRounded,false)){
-                setRoundedEdittext();
+            int roundedType = arrayStyledAttributes.getInteger(R.styleable.CustomEditText_isRounded, -1);
+            if(roundedType != -1){
+                setRoundedEdittext(roundedType);
             }
 
             int hintAppearanceWithoutError = arrayStyledAttributes.getResourceId(R.styleable.CustomEditText_hintApperanceWithoutError, -1);
@@ -215,12 +219,14 @@ public class CustomEditText extends LinearLayout implements ValidableView {
             if(g_layouts.findViewWithTag("judul") == null) {
                 isNeedJudul = false;
 
-                g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
-
                 if (isNeedError) {
                     setHintApperance();
-                    g_edittext.setLayoutParams(getLayoutParamsWeight3());
+                    g_tv_Hint.setLayoutParams(getLayoutParamsWeight2());
+                    g_tv_Hint.setGravity(Gravity.BOTTOM);
+                    g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                    g_edittext.setGravity(Gravity.TOP);
                 } else {
+                    g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
                     g_edittext.setLayoutParams(getLayoutParamsWeight2());
                 }
 
@@ -233,12 +239,13 @@ public class CustomEditText extends LinearLayout implements ValidableView {
         if(!isNeedJudul) {
             if(g_layouts.findViewWithTag("judul") != null) {
                 isNeedJudul = true;
-
+                g_edittext.setGravity(Gravity.CENTER_VERTICAL);
                 if (isNeedError) {
                     g_edittext.setLayoutParams(getLayoutParamsWeight4());
                 } else {
                     g_edittext.setLayoutParams(getLayoutParamsWeight3());
                 }
+
                 g_layouts.removeView(g_tv_Hint);
             }
         }
@@ -252,8 +259,10 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
                 setErrorTextAppearance();
                 g_tv_Error.setLayoutParams(getLayoutParamsWeight1());
-
+                g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
+                g_tv_Hint.setGravity(Gravity.CENTER_VERTICAL);
                 g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                g_edittext.setGravity(Gravity.CENTER_VERTICAL);
                 g_layouts.addView(g_tv_Error);
             }
         }
@@ -265,7 +274,11 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 isNeedError = true;
                 setHintApperance();
 
-                g_edittext.setLayoutParams(getLayoutParamsWeight3());
+                g_tv_Hint.setLayoutParams(getLayoutParamsWeight2());
+                g_tv_Hint.setGravity(Gravity.BOTTOM);
+                g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                g_edittext.setGravity(Gravity.TOP);
+
                 g_layouts.removeView(g_tv_Error);
             }
         }
@@ -479,8 +492,17 @@ public class CustomEditText extends LinearLayout implements ValidableView {
         g_edittext.setText(p_text);
     }
 
-    public void setRoundedEdittext(){
-        g_layouts.setBackground(getResources().getDrawable(R.drawable.style_background_custom_edittext));
+    public void setRoundedEdittext(int p_type){
+        if(p_type == 1){
+            g_layouts.setBackground(getResources().getDrawable(R.drawable.style_background_custom_edittext));
+        }
+        else if(p_type == 2){
+            g_layouts.setBackground(getResources().getDrawable(R.drawable.style_background_custom_edittext_top));
+        }
+        else if(p_type == 3){
+            g_layouts.setBackground(getResources().getDrawable(R.drawable.style_background_custom_edittext_bottom));
+        }
+
     }
 
     private void setHintApperance()
@@ -589,8 +611,9 @@ public class CustomEditText extends LinearLayout implements ValidableView {
             }
             else {
                 if(l_text.getText().toString().trim().isEmpty()){
-                    removeJudul();
                     removeError();
+                    removeJudul();
+
                     if(!g_tv_Subhint.getText().toString().trim().isEmpty()){
                         addSubHint();
                     }else{
@@ -631,7 +654,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 l_edittext.getText().clear();
             }
 
-            validateText(l_edittext);
+//            validateText(l_edittext);
         }
 
         private boolean validateText(EditText p_edittext) {
