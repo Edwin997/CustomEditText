@@ -23,7 +23,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-public class CustomEditText extends LinearLayout {
+import com.example.customedittext.validator.IValidator;
+import com.example.customedittext.validator.OnCheckValidatorListener;
+import com.example.customedittext.validator.ValidableView;
+import com.example.customedittext.validator.ValidatorEmptyText;
+
+import java.util.ArrayList;
+
+public class CustomEditText extends LinearLayout implements ValidableView {
 
     //Data Member Layout
     private LinearLayout g_layouts;
@@ -36,6 +43,7 @@ public class CustomEditText extends LinearLayout {
     private boolean isNeedError = true;
     private boolean isNeedJudul = true;
     private boolean g_hasFocus = false;
+    private ArrayList<IValidator> g_validatorArrayList;
 
     //Style Data Member
     @StyleRes int resIdHintWithError = 0;
@@ -80,6 +88,7 @@ public class CustomEditText extends LinearLayout {
         g_edittext.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         g_edittext.setOnFocusChangeListener(new CustomFocus(g_edittext));
         g_edittext.addTextChangedListener(new CustomTextWatcher(g_edittext));
+        g_validatorArrayList = new ArrayList<>();
     }
 
     private void init(Context context, AttributeSet attrs){
@@ -91,6 +100,7 @@ public class CustomEditText extends LinearLayout {
         if(!g_tv_Subhint.getText().toString().trim().isEmpty()){
             addSubHint();
         }
+        g_validatorArrayList = new ArrayList<>();
     }
 
     private void setAttributes(AttributeSet attrs){
@@ -157,6 +167,10 @@ public class CustomEditText extends LinearLayout {
             float textSize = arrayStyledAttributes.getDimensionPixelSize(R.styleable.CustomEditText_messageSize, -1);
             if(textSize != -1){
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            }
+
+            if(arrayStyledAttributes.getBoolean(R.styleable.CustomEditText_notEmpty, false)){
+                addValidator(new ValidatorEmptyText());
             }
 
             String message = arrayStyledAttributes.getString(R.styleable.CustomEditText_message);
@@ -316,6 +330,10 @@ public class CustomEditText extends LinearLayout {
     public void setHint(String p_strText){
         g_tv_Hint.setText(p_strText);
         g_edittext.setHint(p_strText);
+    }
+
+    public String getHint(){
+        return g_tv_Hint.getText().toString();
     }
 
     public void setSubHint(String subhint){
@@ -514,6 +532,45 @@ public class CustomEditText extends LinearLayout {
     }
     //endregion
 
+    //region METHOD Validator
+    @Override
+    public void addValidator(IValidator p_validator){
+        g_validatorArrayList.add(p_validator);
+    }
+
+    @Override
+    public boolean checkValidator(){
+        boolean isValid;
+
+        for(int i = 0; i < g_validatorArrayList.size(); i++){
+            isValid = g_validatorArrayList.get(i).validateText(g_edittext.getText().toString());
+            if(!isValid){
+                g_tv_Error.setText(g_validatorArrayList.get(i).getErrorMessage().replace("%d", getHint()));
+                addError();
+
+                return false;
+            }
+            else{
+                g_tv_Error.setText(g_validatorArrayList.get(i).getErrorMessage().replace("%d", getHint()));
+                removeError();
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkValidatorWithoutErrorMessage(){
+        boolean isValid;
+        for(int i = 0; i < g_validatorArrayList.size(); i++){
+            isValid = g_validatorArrayList.get(i).validateText(g_edittext.getText().toString());
+            if(!isValid){
+                return false;
+            }
+        }
+        return true;
+    }
+    //endregion
+
     //region SUBCLASS
     private class CustomFocus implements OnFocusChangeListener{
 
@@ -565,7 +622,11 @@ public class CustomEditText extends LinearLayout {
 
         @Override
         public void afterTextChanged(Editable s) {
-            //##Force first character can't be started with sapce
+            //##1.Check Validator if it has some focus
+            if(this.l_edittext.hasFocus()){
+                boolean valid = checkValidator();
+            }
+            //##2. Force first character can't be started with space
             if(l_edittext.getText().toString().trim().equals("")){
                 l_edittext.getText().clear();
             }
