@@ -24,10 +24,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
 import com.example.customedittext.validator.IValidator;
+import com.example.customedittext.validator.OnCheckValidatorListener;
+import com.example.customedittext.validator.ValidableView;
+import com.example.customedittext.validator.ValidatorEmptyText;
 
 import java.util.ArrayList;
 
-public class CustomEditText extends LinearLayout{
+public class CustomEditText extends LinearLayout implements ValidableView {
 
     //Data Member Layout
     private LinearLayout g_layouts;
@@ -164,6 +167,10 @@ public class CustomEditText extends LinearLayout{
             float textSize = arrayStyledAttributes.getDimensionPixelSize(R.styleable.CustomEditText_messageSize, -1);
             if(textSize != -1){
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            }
+
+            if(arrayStyledAttributes.getBoolean(R.styleable.CustomEditText_notEmpty, false)){
+                addValidator(new ValidatorEmptyText());
             }
 
             String message = arrayStyledAttributes.getString(R.styleable.CustomEditText_message);
@@ -323,6 +330,10 @@ public class CustomEditText extends LinearLayout{
     public void setHint(String p_strText){
         g_tv_Hint.setText(p_strText);
         g_edittext.setHint(p_strText);
+    }
+
+    public String getHint(){
+        return g_tv_Hint.getText().toString();
     }
 
     public void setSubHint(String subhint){
@@ -532,23 +543,17 @@ public class CustomEditText extends LinearLayout{
         boolean isValid;
 
         for(int i = 0; i < g_validatorArrayList.size(); i++){
-            isValid = g_validatorArrayList.get(i).validateText(g_editText.getText().toString());
+            isValid = g_validatorArrayList.get(i).validateText(g_edittext.getText().toString());
             if(!isValid){
-                g_textInputLayout.setErrorEnabled(true);
-                g_textInputLayout.setError(g_validatorArrayList.get(i).getErrorMessage().replace("%d", getHint()));
-                //g_textInputLayout.setError(g_errorMessageArrayList.get(i));
-                if(onCheckValidatorListener != null){
-                    onCheckValidatorListener.onCheckedValidator(false);
-                }
+                g_tv_Error.setText(g_validatorArrayList.get(i).getErrorMessage().replace("%d", getHint()));
+                addError();
+
                 return false;
             }
             else{
-                g_textInputLayout.setError(null);
-                g_textInputLayout.setErrorEnabled(false);
+                g_tv_Error.setText(g_validatorArrayList.get(i).getErrorMessage().replace("%d", getHint()));
+                removeError();
             }
-        }
-        if(onCheckValidatorListener != null){
-            onCheckValidatorListener.onCheckedValidator(true);
         }
         return true;
     }
@@ -557,7 +562,7 @@ public class CustomEditText extends LinearLayout{
     public boolean checkValidatorWithoutErrorMessage(){
         boolean isValid;
         for(int i = 0; i < g_validatorArrayList.size(); i++){
-            isValid = g_validatorArrayList.get(i).validateText(g_editText.getText().toString());
+            isValid = g_validatorArrayList.get(i).validateText(g_edittext.getText().toString());
             if(!isValid){
                 return false;
             }
