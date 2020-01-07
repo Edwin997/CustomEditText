@@ -43,7 +43,8 @@
         app:error="Nomor e-KTP harus 16 digit"
         app:size="2"
         app:maxLength="16"
-        app:keyboardType="3"
+        app:keyboardType="@string/KeyboardTypeNumericOnly"
+        app:isRounded="@string/isRoundedAll"
         app:isPassword="true"
         app:singleLine="true"
         />
@@ -57,7 +58,7 @@
         app:error="Nomor e-KTP harus 16 digit"
         app:size="1"
         app:maxLength="16"
-        app:keyboardType="2"
+        app:keyboardType="@string/KeyboardTypeAlphaNumeric"
         />
 
     <EditText

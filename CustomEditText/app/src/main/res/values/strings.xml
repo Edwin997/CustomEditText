@@ -6,4 +6,17 @@
     <string name="ValidatorContainAlphaNumeric">2</string>
     <string name="ValidatorDigitOnly">3</string>
     <string name="ValidatorEmail">4</string>
+
+    <string name="KeyboardTypeAlphaNumeric">AlphaNumeric</string>
+    <string name="KeyboardTypeAlphabetOnly">AlphabetOnly</string>
+    <string name="KeyboardTypeNumericOnly">NumericOnly</string>
+    <string name="KeyboardTypeAlphaNumericComaAndDot">AlphaNumericComaAndDot</string>
+    <string name="KeyboardTypeAlphaNumericComaSlashAndDot">AlphaNumericComaSlashAndDot</string>
+
+    <string name="isRoundedAll">RoundedAll</string>
+    <string name="isRoundedTop">RoundedTop</string>
+    <string name="isRoundedBottom">RoundedBottom</string>
+
+    <string name="ValidatorMinLengthTypeAlphabet">TypeAlphabet</string>
+    <string name="ValidatorMinLengthTypeDigit">TypeDigit</string>
 </resources>

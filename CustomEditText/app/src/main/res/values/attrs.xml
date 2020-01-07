@@ -6,16 +6,14 @@
         <attr name="error" format="string" />
         <attr name="size" format="integer" />
         <attr name="singleLine" format="boolean" />
-        <attr name="keyboardType" format="integer" />
+        <attr name="keyboardType" format="string" />
         <attr name="isPassword" format="boolean" />
         <attr name="maxLength" format="integer"/>
         <attr name="messageSize" format="integer" />
-        <attr name="validatorType" format="string" />
-        <attr name="matchText" format="reference" />
-        <attr name="minLengthAlphabet" format="integer" />
-        <attr name="minLengthDigit" format="integer" />
+        <attr name="noEmptyText" format="boolean"/>
+        <attr name="minLength" format="integer" />
         <attr name="message" format="string" />
-        <attr name="isRounded" format="integer" />
+        <attr name="isRounded" format="string" />
         <attr name="hintApperanceWithError" format="integer" />
         <attr name="hintApperanceWithoutError" format="integer" />
         <attr name="subHintApperance" format="integer" />
