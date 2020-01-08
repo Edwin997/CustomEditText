@@ -16,6 +16,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -229,14 +230,14 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
                 if (isNeedError) {
                     setHintApperance();
-                    g_tv_Hint.setLayoutParams(getLayoutParamsWeight2());
+                    g_tv_Hint.setLayoutParams(getLayoutParamsWeightMultiLine());
                     g_tv_Hint.setGravity(Gravity.BOTTOM);
-                    g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                    g_edittext.setLayoutParams(getLayoutParamsWeightMultiLine());
                     g_edittext.setGravity(Gravity.TOP);
                     g_edittext.setHint("");
                 } else {
-                    g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
-                    g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                    g_tv_Hint.setLayoutParams(getLayoutParamsWeightMultiLine());
+                    g_edittext.setLayoutParams(getLayoutParamsWeightMultiLine());
                 }
 
                 g_layouts.addView(g_tv_Hint, 0);
@@ -267,18 +268,18 @@ public class CustomEditText extends LinearLayout implements ValidableView {
                 setHintApperance();
 
                 setErrorTextAppearance();
-                if(g_layout_type == 1){
-                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
-                } else if(g_layout_type == 2){
-                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
-                }else if(g_layout_type == 3){
-                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12));
-                }
+//                if(g_layout_type == 1){
+//                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
+//                } else if(g_layout_type == 2){
+//                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+//                }else if(g_layout_type == 3){
+//                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12));
+//                }
 
-                g_tv_Error.setLayoutParams(getLayoutParamsWeight1());
-                g_tv_Hint.setLayoutParams(getLayoutParamsWeight1());
+                g_tv_Error.setLayoutParams(getLayoutParamsWeightMultiLine());
+                g_tv_Hint.setLayoutParams(getLayoutParamsWeightMultiLine());
                 g_tv_Hint.setGravity(Gravity.CENTER_VERTICAL);
-                g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                g_edittext.setLayoutParams(getLayoutParamsWeightMultiLine());
                 g_edittext.setGravity(Gravity.CENTER_VERTICAL);
                 g_layouts.addView(g_tv_Error);
             }
@@ -290,16 +291,16 @@ public class CustomEditText extends LinearLayout implements ValidableView {
             if(g_layouts.findViewWithTag("error") != null) {
                 isNeedError = true;
                 setHintApperance();
-                if(g_layout_type == 1){
-                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
-                }else if(g_layout_type == 2){
-                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
-                }else if(g_layout_type == 3){
-                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
-                }
-                g_tv_Hint.setLayoutParams(getLayoutParamsWeight2());
+//                if(g_layout_type == 1){
+//                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
+//                }else if(g_layout_type == 2){
+//                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
+//                }else if(g_layout_type == 3){
+//                    g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
+//                }
+                g_tv_Hint.setLayoutParams(getLayoutParamsWeightMultiLine());
                 g_tv_Hint.setGravity(Gravity.BOTTOM);
-                g_edittext.setLayoutParams(getLayoutParamsWeight2());
+                g_edittext.setLayoutParams(getLayoutParamsWeightMultiLine());
                 g_edittext.setGravity(Gravity.TOP);
 
                 g_layouts.removeView(g_tv_Error);
@@ -311,8 +312,8 @@ public class CustomEditText extends LinearLayout implements ValidableView {
         if(!TextUtils.isEmpty(g_tv_Subhint.getText())) {
             if (g_layouts.findViewWithTag("subhint") == null) {
                 setSubHintTextAppearance();
-                g_edittext.setLayoutParams(getLayoutParamsWeight2());
-                g_tv_Subhint.setLayoutParams(getLayoutParamsWeight2());
+                g_edittext.setLayoutParams(getLayoutParamsWeightMultiLine());
+                g_tv_Subhint.setLayoutParams(getLayoutParamsWeightMultiLine());
                 g_layouts.addView(g_tv_Subhint,1);
                 g_edittext.setGravity(Gravity.BOTTOM);
             }
@@ -328,32 +329,27 @@ public class CustomEditText extends LinearLayout implements ValidableView {
     //endregion
 
     //region METHOD get LayoutParams
-    private LayoutParams getLayoutParamsWeight1(){
-        return new LinearLayout.LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                0,
-                getResources().getFloat(R.dimen.CustomEditTextSize1));
-    }
+//    private LayoutParams getLayoutParamsWeight1(){
+//        return getLayoutParamsWeightMultiLine();
+////        return new LinearLayout.LayoutParams(
+////                LayoutParams.MATCH_PARENT,
+////                0,
+////                getResources().getFloat(R.dimen.CustomEditTextSize1));
+//    }
+//
+//    private LayoutParams getLayoutParamsWeight2(){
+//        return getLayoutParamsWeightMultiLine();
+////        return new LinearLayout.LayoutParams(
+////                LayoutParams.MATCH_PARENT,
+////                0,
+////                getResources().getFloat(R.dimen.CustomEditTextSize2));
+//    }
 
-    private LayoutParams getLayoutParamsWeight2(){
+    private LayoutParams getLayoutParamsWeightMultiLine(){
         return new LinearLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT,
-                0,
-                getResources().getFloat(R.dimen.CustomEditTextSize2));
-    }
-
-    private LayoutParams getLayoutParamsWeight3(){
-        return new LinearLayout.LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                0,
-                getResources().getFloat(R.dimen.CustomEditTextSize3));
-    }
-
-    private LayoutParams getLayoutParamsWeight4(){
-        return new LinearLayout.LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                0,
-                getResources().getFloat(R.dimen.CustomEditTextFull));
+                LayoutParams.WRAP_CONTENT,
+                getResources().getInteger(R.integer.CustomEditTextSize1));
     }
 
     private LayoutParams getLayoutParamsHeight(int height){
@@ -382,27 +378,30 @@ public class CustomEditText extends LinearLayout implements ValidableView {
     }
 
     public void setSizeL(){
-        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));//:1
-        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize17));
-        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12)); //:1.4
-        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize12)); //:1.4
-        g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutL)));//x12
+        g_tv_Hint.setTextSize(getResources().getInteger(R.integer.SizeTextSize17));//:1
+        g_edittext.setTextSize(getResources().getInteger(R.integer.SizeTextSize17));
+        g_tv_Subhint.setTextSize(getResources().getInteger(R.integer.SizeTextSize12)); //:1.4
+        g_tv_Error.setTextSize(getResources().getInteger(R.integer.SizeTextSize12)); //:1.4
+        g_layouts.setMinimumHeight(getResources().getInteger(R.integer.SizeLayoutL));
+        g_layouts.setLayoutParams(getLayoutParamsHeight(LayoutParams.WRAP_CONTENT));//x12
     }
 
     public void setSizeM(){
-        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
-        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize13));
-        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
-        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
-        g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutM)));
+        g_tv_Hint.setTextSize(getResources().getInteger(R.integer.SizeTextSize13));//:1
+        g_edittext.setTextSize(getResources().getInteger(R.integer.SizeTextSize13));
+        g_tv_Subhint.setTextSize(getResources().getInteger(R.integer.SizeTextSize10)); //:1.4
+        g_tv_Error.setTextSize(getResources().getInteger(R.integer.SizeTextSize10)); //:1.4
+        g_layouts.setMinimumHeight(getResources().getInteger(R.integer.SizeLayoutM));
+        g_layouts.setLayoutParams(getLayoutParamsHeight(LayoutParams.WRAP_CONTENT));//x12
     }
 
     public void setSizeS(){
-        g_tv_Hint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
-        g_edittext.setTextSize(getResources().getFloat(R.dimen.SizeTextSize10));
-        g_tv_Subhint.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
-        g_tv_Error.setTextSize(getResources().getFloat(R.dimen.SizeTextSize8));
-        g_layouts.setLayoutParams(getLayoutParamsHeight((int)getResources().getFloat(R.dimen.SizeLayoutS)));
+        g_tv_Hint.setTextSize(getResources().getInteger(R.integer.SizeTextSize10));//:1
+        g_edittext.setTextSize(getResources().getInteger(R.integer.SizeTextSize10));
+        g_tv_Subhint.setTextSize(getResources().getInteger(R.integer.SizeTextSize8)); //:1.4
+        g_tv_Error.setTextSize(getResources().getInteger(R.integer.SizeTextSize8)); //:1.4
+        g_layouts.setMinimumHeight(getResources().getInteger(R.integer.SizeLayoutS));
+        g_layouts.setLayoutParams(getLayoutParamsHeight(LayoutParams.WRAP_CONTENT));//x12
     }
 
     public void setSingleLine(){
