@@ -486,7 +486,7 @@ public class CustomEditText extends LinearLayout implements ValidableView {
 
             protected char[] getAcceptedChars()
             {
-                return new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+                return new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '/' };
             }
 
             public int getInputType()

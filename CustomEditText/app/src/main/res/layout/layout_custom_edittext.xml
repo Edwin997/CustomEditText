@@ -10,8 +10,7 @@
     android:paddingLeft="20dp"
     android:paddingTop="5dp"
     android:paddingRight="20dp"
-    android:paddingBottom="5dp"
-    android:weightSum="4">
+    android:paddingBottom="5dp">
 
     <EditText
         android:id="@+id/et_custom_edittext"
@@ -19,7 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="4"
-        android:maxLines="5"
         android:background="@android:color/transparent" />
 
 </LinearLayout>
