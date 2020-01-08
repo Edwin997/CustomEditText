@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="CustomEditTextFull">4</integer>
+    <integer name="CustomEditTextSize3">3</integer>
+    <integer name="CustomEditTextSize2">2</integer>
+    <integer name="CustomEditTextSize1">1</integer>
+
+    <integer name="SizeTextSize17">17</integer>
+    <integer name="SizeTextSize13">13</integer>
+    <integer name="SizeTextSize12">12</integer>
+    <integer name="SizeTextSize10">10</integer>
+    <integer name="SizeTextSize8">8</integer>
+
+    <integer name="SizeLayoutL">200</integer>
+    <integer name="SizeLayoutM">175</integer>
+    <integer name="SizeLayoutS">150</integer>
+</resources>
